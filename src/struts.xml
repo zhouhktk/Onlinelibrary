@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <!-- 不拦截static目录下的内容 -->
+    <constant name="struts.action.excludePattern" value="/static/.*"/>
+    <!--登陆相关-->
+    <package name="user" extends="struts-default" namespace="/u">
+        <!--登陆-->
+        <action name="login" class="com.model.action.UserLoginAction" method="login">
+            <result name="success" type="redirect">/</result>
+            <result name="input">/user/login.jsp</result>
+        </action>
+        <!--退出-->
+        <action name="logout" class="com.model.action.UserLoginAction" method="logout">
+            <result name="success" type="redirect">/</result>
+        </action>
+        <!--注册-->
+        <action name="register" class="com.model.action.UserRegisterAction" method="register">
+            <result name="success" type="redirect">/</result>
+            <result name="input">/user/register.jsp</result>
+        </action>
+    </package>
+
+    <!--书籍相关-->
+    <package name="book" extends="struts-default" namespace="/book">
+        <!--获得所有书籍-->
+        <action name="all" class="com.model.action.BookAction" method="getAllBooks">
+            <result name="success">/book/indexBookList.jsp</result>
+        </action>
+        <!--获得推荐书籍-->
+        <action name="recommend" class="com.model.action.BookAction" method="getRecBooks">
+            <result name="success">/book/bookRecommend.jsp</result>
+        </action>
+        <action name="oneBook" class="com.model.action.BookAction" method="getOneBookById">
+            <result name="success">/book/detail.jsp</result>
+        </action>
+        <action name="borrow" class="com.model.action.BookAction" method="borrow">
+            <result name="success" type="redirect">/index.jsp</result>
+        </action>
+        <action name="myborrow" class="com.model.action.BookAction" method="myBorrow">
+            <result name="success">/user/borrowList.jsp</result>
+        </action>
+        <action name="retBook" class="com.model.action.BookAction" method="retBook">
+            <result name="success" type="redirect">/user/myBorrow.jsp</result>
+        </action>
+    </package>
+    <!--管理员对书籍的操作-->
+    <package name="admin" extends="struts-default" namespace="/admin">
+        <action name="edit" class="com.model.action.BookAction" method="editOrAddBook">
+            <result name="success">/admin/edit.jsp</result>
+        </action>
+        <action name="save" class="com.model.action.BookAction" method="save">
+            <result name="success" type="redirect">/admin/admin.jsp</result>
+        </action>
+        <action name="delete" class="com.model.action.BookAction" method="delete">
+            <result name="success" type="redirect">/admin/admin.jsp</result>
+        </action>
+        <action name="bookList" class="com.model.action.BookAction" method="getAllBooks">
+            <result name="success">/admin/bookList.jsp</result>
+        </action>
+    </package>
+
+</struts>
